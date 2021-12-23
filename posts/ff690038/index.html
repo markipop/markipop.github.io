@@ -13,7 +13,7 @@
 
 
 
-<title>Pi-dashboard | Jugolink&#39;s Blog</title>
+<title>联想G50-70m oc引导 | Jugolink&#39;s Blog</title>
 
 
 
@@ -40,45 +40,6 @@
 
     
     
-        
-            <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-    "HTML-CSS": {
-        preferredFont: "TeX",
-        availableFonts: ["STIX","TeX"],
-        linebreaks: { automatic:true },
-        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
-    },
-    tex2jax: {
-        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
-        processEscapes: true,
-        ignoreClass: "tex2jax_ignore|dno",
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-        equationNumbers: { autoNumber: "AMS" },
-        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
-        Macros: { href: "{}" }
-    },
-    messageStyle: "none"
-    });
-</script>
-<!-- 给MathJax元素添加has-jax class -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-<!-- 通过连接CDN加载MathJax的js代码 -->
-<script type="text/javascript" async
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-
-
         
     
 
@@ -234,7 +195,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Pi-dashboard</h1>
+            <h1 class="post-title">联想G50-70m oc引导</h1>
             
                 <div class="post-meta">
                     
@@ -243,7 +204,7 @@
                     
                     
                         <span class="post-time">
-                        Date: <a href="#">November 14, 2021&nbsp;&nbsp;23:53:00</a>
+                        Date: <a href="#">December 23, 2021&nbsp;&nbsp;17:50:00</a>
                         </span>
                     
              
@@ -259,7 +220,7 @@
                     <span class="tag">
                         
                             
-                                <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"># 树莓派</a>
+                                <a href="/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/"># 黑苹果</a>
                             
                         
                     </span>
@@ -268,50 +229,110 @@
         </header>
 
         <div class="post-content">
-            <p>Pi Dashboard (Pi 仪表盘) 是一个开源的 IoT 设备监控工具，目前主要针对树莓派平台，也尽可能兼容其他类树莓派硬件产品。你只需要在树莓派上安装好 PHP 服务器环境，即可方便的部署一个 Pi 仪表盘，通过炫酷的 WebUI 来监控树莓派的状态！</p>
-<p>目前已加入的监测项目有：</p>
+            <h2 id="联想G50-70m-OC引导"><a href="#联想G50-70m-OC引导" class="headerlink" title="联想G50-70m OC引导"></a>联想G50-70m OC引导</h2><h3 id="配置信息"><a href="#配置信息" class="headerlink" title="配置信息"></a>配置信息</h3><table>
+<thead>
+<tr>
+<th>硬件名称</th>
+<th>属性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cpu</td>
+<td>i5-4210u</td>
+</tr>
+<tr>
+<td>核显</td>
+<td>Intel(R) HD Graphics 4400</td>
+</tr>
+<tr>
+<td>独显</td>
+<td>GF820M（GPU代码名称GT117）</td>
+</tr>
+<tr>
+<td>内存</td>
+<td>DDR3L 8*2双通道（三星+光威）</td>
+</tr>
+<tr>
+<td>硬盘</td>
+<td>500G金士顿固态</td>
+</tr>
+<tr>
+<td>无线网卡</td>
+<td>更换成了BCM95342Z，原瑞昱网卡无法驱动</td>
+</tr>
+<tr>
+<td>有线网卡</td>
+<td>Realtek RTL8168/8111</td>
+</tr>
+<tr>
+<td>BIOS 版本</td>
+<td>Build Number: 2179 PC 14.34 10/07/2013 10:03:35</td>
+</tr>
+<tr>
+<td>声卡</td>
+<td>Intel Lynx Point-LP PCH（ Conexant CX20751/CX20752）</td>
+</tr>
+</tbody></table>
+<p>以上尽可能详细的贴出硬件参数，方便直接进行配置oc升级。由于更换成了博通网卡，所以蓝牙和wifi都不需要加载驱动，个别情况可能需要，遇到了在提。</p>
+<h3 id="OC版本及引导情况"><a href="#OC版本及引导情况" class="headerlink" title="OC版本及引导情况"></a>OC版本及引导情况</h3><p>OC版本： 0.7.7</p>
+<p>引导系统版本：BigSur11.6.2（当前最新）</p>
+<p>正常项：</p>
 <ul>
-<li>CPU 基本信息、状态和使用率等实时数据</li>
-<li>内存、缓存、SWAP分区使用的实时数据</li>
-<li>SD卡（磁盘）的占用情况</li>
-<li>实时负载数据</li>
-<li>实施进程数据</li>
-<li>网络接口的实时数据</li>
-<li>树莓派IP、运行时间、操作系统、HOST 等基础信息</li>
+<li>Wi-Fi</li>
+<li>蓝牙</li>
+<li>随航</li>
+<li>接力</li>
+<li>隔空投送</li>
+<li>亮度调节（控制中心滑块调节）</li>
+<li>声音调节（按键+控制中心调节）</li>
+<li>HDMI输出</li>
+<li>核显加速</li>
+<li>电池状态</li>
+<li>……</li>
+<li>……</li>
 </ul>
-<h2 id="仪表盘预览"><a href="#仪表盘预览" class="headerlink" title="仪表盘预览"></a>仪表盘预览</h2><p><img src="https://shumeipai.nxez.com/wp-content/uploads/2017/08/20170831005933963-0.jpg" alt="img"></p>
-<h3 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h3><p>安装共2步，首先安装 Nginx（或 Apache）和 PHP。然后在 Nginx 目录通过 SFTP 或 GitHub 部署好本项目的程序。</p>
-<h4 id="1-安装-Nginx-和-PHP"><a href="#1-安装-Nginx-和-PHP" class="headerlink" title="1.安装 Nginx 和 PHP"></a>1.安装 Nginx 和 PHP</h4><p>在 Pi 的终端运行以下命令。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install nginx php7.3-fpm php7.3-cli php7.3-curl php7.3-gd php7.3-cgi</span><br><span class="line">sudo service nginx start</span><br><span class="line">sudo service php7.3-fpm restart</span><br></pre></td></tr></table></figure>
-
-<p>如果安装成功，可通过 <code>http://树莓派IP</code> 访问到 Nginx 的默认页。Nginx 的根目录在 <code>/var/www/html</code>。<br>进行以下操作来让 Nginx 能处理 PHP。<br><code>sudo nano /etc/nginx/sites-available/default</code></p>
-<p>将其中的如下内容</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">                # First attempt to serve request as file, then</span><br><span class="line">                # as directory, then fall back to displaying a 404.</span><br><span class="line">                try_files $uri $uri/ =404;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-
-<p>替换为</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">index  index.html index.htm index.php default.html default.htm default.php;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">location ~\.php$ &#123;</span><br><span class="line">fastcgi_pass unix:/run/php/php7.3-fpm.sock;</span><br><span class="line">#fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;</span><br><span class="line">include fastcgi_params;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Ctrl + O 保存再 Ctrl + X 退出。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service nginx restart</span><br></pre></td></tr></table></figure>
-
-<p>最后重启 Nginx 即可，以上步骤在树莓派 Zero + <code>Linux version 4.9.41+</code> 系统版本上测试通过。</p>
-<p>对在树莓派上部署 LNMP 有兴趣可以参考这篇更详细的介绍《<a target="_blank" rel="noopener" href="http://shumeipai.nxez.com/2013/08/25/install-and-config-lnmp.html">树莓派搭建LNMP环境</a>》。</p>
-<h4 id="2-部署-Pi-Dashboard"><a href="#2-部署-Pi-Dashboard" class="headerlink" title="2.部署 Pi Dashboard"></a>2.部署 Pi Dashboard</h4><p>这里介绍两种方法将 Pi Dashboard 部署在 Nginx 上。<br><strong>2.1. SFTP 上传</strong><br>在 GitHub 下载本项目源码。<a target="_blank" rel="noopener" href="http://shumeipai.nxez.com/2013/09/07/use-the-remote-sftp-file-transfer-raspberry-pi.html">通过 FileZilla 等 FTP 软件</a>将解压出来的目录上传到树莓派的 <code>/var/www/html</code> 目录下。<br>那么可以通过 <code>http://树莓派IP/pi-dashboard</code> 访问部署好了的 Pi Dashboard。</p>
-<p>如果页面无法显示，可以尝试在树莓派终端给源码添加运行权限，例如你上传之后的路径是 <code>/var/www/html/pi-dashboard</code>，则运行。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /var/www/html</span><br><span class="line">sudo chown -R www-data pi-dashboard</span><br></pre></td></tr></table></figure>
-
-<p><strong>2.2. GitHub 部署</strong><br>如果你了解过 GitHub 的基本操作，通过 GitHub 来下载本项目到 Pi 上会相当方便。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#如果已安装过 git 客户端可以跳过下一行</span><br><span class="line">sudo apt-get install git</span><br><span class="line">cd /var/www/html</span><br><span class="line">sudo git clone https://github.com/nxez/pi-dashboard.git</span><br></pre></td></tr></table></figure>
-
-<p>即可通过 <code>http://树莓派IP/pi-dashboard</code> 访问部署好了的 Pi Dashboard。</p>
-<p>同样如果页面无法显示，可以尝试在树莓派终端给源码添加运行权限，例如你上传之后的路径是 <code>/var/www/html/pi-dashboard</code>，则运行。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /var/www/html</span><br><span class="line">sudo chown -R www-data pi-dashboard</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p>原文出处：<a target="_blank" rel="noopener" href="https://make.quwj.com/project/10">Pi Dashboard (Pi 仪表盘) - MAKE 趣无尽 (quwj.com)</a></p>
+<p>异常项：</p>
+<ul>
+<li>触控板的按键（暂时无解）</li>
+<li>亮度调节（按键调节）</li>
+<li>……</li>
+</ul>
+<p>有关异常项，相信没多少人喜欢用触控板，外接鼠标键盘或蓝牙鼠标键盘更舒服，所以感觉问题不大</p>
+<p>亮度按键调节，相关补丁没时间去研究了，姑且控制中心调整就好</p>
+<h3 id="有关更换网卡的限制"><a href="#有关更换网卡的限制" class="headerlink" title="有关更换网卡的限制"></a>有关更换网卡的限制</h3><p>据我所知，较老的惠普和联想电脑都有bios白名单限制，也就是说无法直接升级或更换无线网卡，有两个方法：</p>
+<ul>
+<li>删除白名单模块</li>
+<li>将需要替换升级的无线网卡硬件ID写进bios白名单中</li>
+</ul>
+<p>两个方法都涉及到刷bios，所以是有风险的。我更倾向选第一种，因为删除了白名单限制，后续需要更换网卡随便换，不需要再重新将新的网卡id写进bios。有关这部分的问题，将会单独出一个教程，需要的可以去看。</p>
+<h3 id="有关这份OC引导文件的来历"><a href="#有关这份OC引导文件的来历" class="headerlink" title="有关这份OC引导文件的来历"></a>有关这份OC引导文件的来历</h3><p><strong>最开始用的版本</strong></p>
+<p>从黑果小兵长期维护清单中找到了一个国外的论坛，里边有包含这台联想笔记本可能合适的efi，事实上也找到了，只是版本有些老旧，0.6.4。刚开始我尝试用这份0.6.4版本的efi去引导安装Big Sur11.1，安装成功了。不出意外，蓝牙是不能用的。于是就挑了一份博通网卡买入，从tb店fenvi店铺买的BCM95342Z，好像也有些品牌卖同款型号的，我知道的有一个联想的BCM95342Z，但似乎在安装后引导monterey遇到些问题，不过这些问题都解决了。</p>
+<p>建议需要买博通网卡的话，尽量选购买基数较大的类型，发现问题也比较好找资源。</p>
+<p><strong>有关这网卡的体验</strong></p>
+<p>除此之外，如果觉得为了不怎么用的随航或者隔空投送去忍受这个仅支持蓝牙4.0的老网卡，还不如入新的inter的网卡，毕竟只需要打几个驱动就能用了，那这就是仁者见仁智者见智得自己去权衡了。</p>
+<p>话说话来，在使用的这款博通网卡之前，都已经打算试两天然后就退掉，但是，体验了mac上稳如老狗的隔空和随航还有接力这些对比以前体验其他可驱动的网卡时好时坏的感觉后，再也回不去了，彻底喜欢上了免驱网卡。我了解到的，也是我当时想要入手的有支持Wi-Fi6的蓝牙支持5.1/5.2的AX200，AX201，价格可能还比这款网卡便宜些，不过这都是前话了。</p>
+<p><strong>monterey 遇到的问题</strong></p>
+<p>回到正题，当我拿到博通的网卡后，直接就吧系统怼到了monterey 12.1，遇到了一个十分蛋疼的问题，那就是在bigsur中稳如老狗的博通网卡，竟然出现了时断时连的情况，体验完全跟不上了。在我还不死心的情况下，尝试去搜集了些信息，=以及必要的驱动，都不满意。到最后，还是退回了bigsur。</p>
+<p>究其原因，大概只能怪苹果公司在12的系统中对蓝牙栈做了大份的修改以适配自身的硬件情况，在升级到monterey的一大波人中，出现我遇到的这种情况的不再少数。目前也有缓兵之计，针对这种情况，具体可以造访黑苹果论坛了解，这里不展开讲了。还是bigsur舒服。</p>
+<p><strong>会不会太老了，玩意之后升级到更新的系统会不会出问题</strong></p>
+<p>这是这个疑问，让我想尝试升级OC 版本，而前边提到的那个国外的论坛，最新的版本我看到的也只是0.6.9，也可能有更新的，我没看到罢了。但这就给了我一个学习升级oc的机会，经过几个小时的软磨硬泡，终于出来了一份efi，结果却是连跑带吗的环节都进不去，不知道问题出在哪里。</p>
+<p>正一筹莫展的时候，我看到我另一台电脑暗影精灵5有最新版的efi发布出来，这个博主也是我关注已久的，我就先放下了联想的事，去忙暗影5的升级尝鲜了。随后就有了对那位博主的有关升级oc版本的请教，在他的全力帮助下，出来这一份看起来还不错的efi。</p>
+<p>我是很喜欢帮人的，也足够的热心和耐心，但我其实对这份efi也没太大信心，我说它好，也仅仅是基于我这台电脑，如果你需要这份efi并且配置和我电脑配置相当，这应该蛮切合的，如果有遇到问题也欢迎提出来，一起学习一起完善它。</p>
+<p>这位博主的博客：<a target="_blank" rel="noopener" href="https://blog.hibobmaster.com/hp-15-dc1010nr-hackintosh/">https://blog.hibobmaster.com/hp-15-dc1010nr-hackintosh/</a></p>
+<p>以及当时我们讨论问题的论坛（这位博主的个人论坛）：<a target="_blank" rel="noopener" href="https://quanquan.space/viewtopic.php?p=786#p786">https://quanquan.space/viewtopic.php?p=786#p786</a></p>
+<p>另外也需要感谢<a target="_blank" rel="noopener" href="https://github.com/Moore2253/Install-MacOS-On-Lenovo-G50-70/commits?author=Moore2253">Moore2253</a>，最早由他提供的clover和最新版的efi做参考，但由于电脑配置有差异，他分享的efi在我这台破电脑上没法引导，所以也就有了前边的絮絮叨叨了。</p>
+<h3 id="安装教程"><a href="#安装教程" class="headerlink" title="安装教程"></a>安装教程</h3><p>如果你还不确切的知道如何完成引导安装的过程，可以参考</p>
+<p>kaqiup的这两篇文章：</p>
+<p><a target="_blank" rel="noopener" href="https://www.kaqiup.xyz/posts/100b5772">https://www.kaqiup.xyz/posts/100b5772</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.kaqiup.xyz/posts/c8cc8a0b">https://www.kaqiup.xyz/posts/c8cc8a0b</a></p>
+<p>方法都是一样的。</p>
+<h3 id="下载链接"><a href="#下载链接" class="headerlink" title="下载链接"></a>下载链接</h3><p>有关这份efi下载链接在这里：</p>
+<p>蓝奏云：<a target="_blank" rel="noopener" href="https://nikooo.lanzout.com/i9xDvxwh6kd">https://nikooo.lanzout.com/i9xDvxwh6kd</a></p>
+<p>也可以选择通过二维码获取下载链接。</p>
+<p><img src="https://pic.imgdb.cn/item/61c443702ab3f51d9197fd6c.png"></p>
+<p>如果使用中或者安装过程中有遇到任何问题，，可以在这里发帖出来：</p>
+<p><a target="_blank" rel="noopener" href="https://www.nikooo.site/t/macos">https://www.nikooo.site/t/macos</a></p>
+<p>这个论坛预计维护到2022年1月，之后将会迁移到个人服务器。</p>
 
         </div>
 
@@ -327,7 +348,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://markipop.github.io/posts/6c0957e8/">https://markipop.github.io/posts/6c0957e8/</a></span>
+                        <span><a href="https://markipop.github.io/posts/ff690038/">https://markipop.github.io/posts/ff690038/</a></span>
                     </p>
                 
                 
@@ -341,10 +362,8 @@
         
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/posts/a7f612dd/">树莓派安装中文输入法</a>
             
-            
-            <a class="next" rel="next" href="/posts/11998d59/">树莓派开箱上机后要做的事</a>
+            <a class="next" rel="next" href="/posts/463fd0e9/">Hexo部署后Github Pages自定义域名失效解决方案</a>
             
 
         </section>
@@ -354,7 +373,7 @@
                 <span class="tag">
                     
                         
-                            <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"># 树莓派</a>
+                            <a href="/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/"># 黑苹果</a>
                         
                     
                 </span>
