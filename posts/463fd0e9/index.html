@@ -13,7 +13,7 @@
 
 
 
-<title>Hello World | Jugolink&#39;s Blog</title>
+<title>Hexo部署后Github Pages自定义域名失效解决方案 | Jugolink&#39;s Blog</title>
 
 
 
@@ -195,7 +195,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Hello World</h1>
+            <h1 class="post-title">Hexo部署后Github Pages自定义域名失效解决方案</h1>
             
                 <div class="post-meta">
                     
@@ -204,13 +204,24 @@
                     
                     
                         <span class="post-time">
-                        Date: <a href="#">December 23, 2021&nbsp;&nbsp;7:53:20</a>
+                        Date: <a href="#">November 15, 2021&nbsp;&nbsp;0:20:00</a>
                         </span>
                     
              
                     
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
+                            
+                        </span>
+                    
                     <span>Tag(s):</span>
                     <span class="tag">
+                        
+                            
+                                <a href="/tags/%E9%83%A8%E7%BD%B2/"># 部署</a>
+                            
                         
                     </span>
                 </div>
@@ -218,19 +229,20 @@
         </header>
 
         <div class="post-content">
-            <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+            <blockquote>
+<p>基于部署在github静态托管</p>
+</blockquote>
+<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>在每次推送到github后，都要在github pages上重新设置绑定域名，着实麻烦，这里提供一个可行的解决办法。</p>
+<h4 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h4><ul>
+<li>进入hexo博客根目录下的source文件夹</li>
+<li>新建文件名为<code>CNAME</code>的文件，不带任何后缀</li>
+<li>编辑<code>CNAME</code>文件内容，在其中增加自己的域名(也就是每次在github pages中绑定的域名内容)，例如<code>blog.xiaoqiang.com</code></li>
+</ul>
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><ul>
+<li>先保证域名可以正常访问博客</li>
+<li>推送  </li>
+</ul>
+<p>这个时候刷新博客，就可以看到博客仍然可以正常访问，而在此项设置之前，每次推送之后，都会无法访问，需要在github中重新绑定域名才能正常访问。</p>
 
         </div>
 
@@ -246,7 +258,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://markipop.github.io/posts/4a17b156/">https://markipop.github.io/posts/4a17b156/</a></span>
+                        <span><a href="https://markipop.github.io/posts/463fd0e9/">https://markipop.github.io/posts/463fd0e9/</a></span>
                     </p>
                 
                 
@@ -260,8 +272,10 @@
         
         <section class="post-nav">
             
+                <a class="prev" rel="prev" href="/posts/4a17b156/">Hello World</a>
             
-            <a class="next" rel="next" href="/posts/463fd0e9/">Hexo部署后Github Pages自定义域名失效解决方案</a>
+            
+            <a class="next" rel="next" href="/posts/64479a0f/">黑苹果更新opencore版本</a>
             
 
         </section>
@@ -269,6 +283,10 @@
             <!-- <div>
                 <span>Tag(s):</span>
                 <span class="tag">
+                    
+                        
+                            <a href="/tags/%E9%83%A8%E7%BD%B2/"># 部署</a>
+                        
                     
                 </span>
             </div> 

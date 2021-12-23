@@ -13,7 +13,7 @@
 
 
 
-<title>Hello World | Jugolink&#39;s Blog</title>
+<title>树莓派开箱上机后要做的事 | Jugolink&#39;s Blog</title>
 
 
 
@@ -40,6 +40,45 @@
 
     
     
+        
+            <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
         
     
 
@@ -195,7 +234,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Hello World</h1>
+            <h1 class="post-title">树莓派开箱上机后要做的事</h1>
             
                 <div class="post-meta">
                     
@@ -204,13 +243,24 @@
                     
                     
                         <span class="post-time">
-                        Date: <a href="#">December 23, 2021&nbsp;&nbsp;7:53:20</a>
+                        Date: <a href="#">November 14, 2021&nbsp;&nbsp;23:52:00</a>
                         </span>
                     
              
                     
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
+                            
+                        </span>
+                    
                     <span>Tag(s):</span>
                     <span class="tag">
+                        
+                            
+                                <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"># 树莓派</a>
+                            
                         
                     </span>
                 </div>
@@ -218,19 +268,43 @@
         </header>
 
         <div class="post-content">
-            <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+            <blockquote>
+<p>此篇基于raspberry官方当前最新版本镜像，其他发行版的镜像源请另行查找。写于2021-09-16</p>
+</blockquote>
+<h3 id="更换镜像源"><a href="#更换镜像源" class="headerlink" title="更换镜像源"></a>更换镜像源</h3><h4 id="32位系统（buster）"><a href="#32位系统（buster）" class="headerlink" title="32位系统（buster）"></a>32位系统（buster）</h4><ul>
+<li><p>修改Raspbian 源<br>命令行输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/apt/sources.list</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>注释掉官方镜像源，将下面两行放进去</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ buster main non-free 	contrib rpi</span><br><span class="line"><span class="comment">#deb-src http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ buster main non-free contrib rpi</span></span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>Ctrl+O保存，回车， Ctrl+X退出。</p>
+</li>
+<li><p>修改Raspberrypi 源</p>
+<p>回到命令行，输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/apt/sources.list.d/raspi.list</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>把下边这行放进去，并注释掉原来的源</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/raspberrypi/ buster main ui</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="64位系统（buster）"><a href="#64位系统（buster）" class="headerlink" title="64位系统（buster）"></a>64位系统（buster）</h4><ul>
+<li><p>修改Raspbian 源<br>命令行输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/apt/sources.list</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>Arm64 架构的 Raspberry Pi OS 仍处于 beta 状态，本镜像上游亦不含此架构。对于 arm64 的 Raspberry Pi OS，可以直接使用 arm64 Debian 的源（以 Buster 示例）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">deb https://mirrors.ustc.edu.cn/debian/ buster main contrib non-free</span><br><span class="line"><span class="comment">#deb-src http://mirrors.ustc.edu.cn/debian buster main contrib non-free</span></span><br><span class="line">deb https://mirrors.ustc.edu.cn/debian/ buster-updates main contrib non-free</span><br><span class="line"><span class="comment">#deb-src http://mirrors.ustc.edu.cn/debian buster-updates main contrib non-free</span></span><br><span class="line">deb https://mirrors.ustc.edu.cn/debian-security buster/updates main contrib non-free</span><br><span class="line"><span class="comment">#deb-src http://mirrors.ustc.edu.cn/debian-security/ buster/updates main non-free contrib</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>修改Raspberrypi 源</p>
+<p>命令行输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/apt/sources.list.d/raspi.list</span><br></pre></td></tr></table></figure>
+
+<p>注释掉官方镜像源，放下边两行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">deb http://mirrors.ustc.edu.cn/archive.raspberrypi.org/debian/ bullseye main ui</span><br><span class="line"><span class="comment">#deb-src http://mirrors.ustc.edu.cn/archive.raspberrypi.org/debian/ bullseye main ui</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>换源后，命令行： sudo apt-get update，更新软件源列表，同时检查编辑是否正确</p>
+<h4 id="更新软件包"><a href="#更新软件包" class="headerlink" title="更新软件包"></a>更新软件包</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
+
 
         </div>
 
@@ -246,7 +320,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://markipop.github.io/posts/4a17b156/">https://markipop.github.io/posts/4a17b156/</a></span>
+                        <span><a href="https://markipop.github.io/posts/11998d59/">https://markipop.github.io/posts/11998d59/</a></span>
                     </p>
                 
                 
@@ -260,8 +334,10 @@
         
         <section class="post-nav">
             
+                <a class="prev" rel="prev" href="/posts/6c0957e8/">Pi-dashboard</a>
             
-            <a class="next" rel="next" href="/posts/463fd0e9/">Hexo部署后Github Pages自定义域名失效解决方案</a>
+            
+            <a class="next" rel="next" href="/posts/d9e112c3/">CPU温度实时预警并将信息发送到钉钉</a>
             
 
         </section>
@@ -269,6 +345,10 @@
             <!-- <div>
                 <span>Tag(s):</span>
                 <span class="tag">
+                    
+                        
+                            <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"># 树莓派</a>
+                        
                     
                 </span>
             </div> 

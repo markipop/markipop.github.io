@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Jugolink">
+
+
+
+
+
+<title>CPU温度实时预警并将信息发送到钉钉 | Jugolink&#39;s Blog</title>
+
+
+
+    <link rel="icon" href="http://img.nikooo.site/NIKOOO.png">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+            <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+        
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+ 
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Jugolink&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" target="_blank" rel="noopener" href="https://www.nikooo.site">Community</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Jugolink&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" target="_blank" rel="noopener" href="https://www.nikooo.site">Community</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">CPU温度实时预警并将信息发送到钉钉</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Jugolink</a>
+                    
+                    
+                    
+                        <span class="post-time">
+                        Date: <a href="#">November 14, 2021&nbsp;&nbsp;23:37:00</a>
+                        </span>
+                    
+             
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
+                            
+                        </span>
+                    
+                    <span>Tag(s):</span>
+                    <span class="tag">
+                        
+                            
+                                <a href="/tags/raspberry/"># raspberry</a>
+                            
+                                <a href="/tags/python/"># python</a>
+                            
+                        
+                    </span>
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h3 id="CPU温度实时预警并将信息发送到钉钉"><a href="#CPU温度实时预警并将信息发送到钉钉" class="headerlink" title="CPU温度实时预警并将信息发送到钉钉"></a>CPU温度实时预警并将信息发送到钉钉</h3><blockquote>
+<p>前言：树莓派扮演了服务器的角色，随着访问量的增加或者调试时出现的bug，难免会遇到超载，满载的可能，这是如果有个cpu温度预警，并且可以及时发送到终端，那是再好不过了。</p>
+</blockquote>
+<p>参考了这个脚本，<a target="_blank" rel="noopener" href="https://github.com/544672716/raspberry">GitHub - 544672716/raspberry: 树莓派学习笔记</a>，并在此基础上修改了温度报警的逻辑</p>
+<h4 id="获取钉钉Token"><a href="#获取钉钉Token" class="headerlink" title="获取钉钉Token"></a>获取钉钉Token</h4><ol>
+<li><p>在钉钉开发者后台创办一个组织</p>
+</li>
+<li><p>创建应用</p>
+<p><img src="https://pic.imgdb.cn/item/6145899a2ab3f51d915272b7.png" alt="创建应用"></p>
+</li>
+<li><p>创建好后，进入开发管理，填入服务器出口IP，也就是你树莓派的IP地址，消息接受地址可以不填</p>
+</li>
+<li><p>授权，在权限管理中开启企业内机器人发送消息权限</p>
+</li>
+<li><p>进入版本管理和发布，上线机器人</p>
+</li>
+<li><p>登陆客户端，创建一个组织的内部群</p>
+</li>
+<li><p>设置，进入智能群助手，创建一个自定义机器人</p>
+</li>
+<li><p>创建完成就有可以获取到webhook，其中就有token的信息，保存下来，接下来有用</p>
+</li>
+</ol>
+<p>参照这里<a target="_blank" rel="noopener" href="https://developers.dingtalk.com/document/robots/custom-robot-access">自定义机器人接入 - 钉钉开放平台 (dingtalk.com)</a></p>
+<h4 id="python脚本编辑"><a href="#python脚本编辑" class="headerlink" title="python脚本编辑"></a>python脚本编辑</h4><blockquote>
+<p>实现功能：每五秒获取一次温度，当连续10次采集温度都在阀值以上，则通过接口报警，在钉钉实时推送出来</p>
+</blockquote>
+<p>send_temp.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> ssl</span><br><span class="line"><span class="keyword">from</span> urllib.request <span class="keyword">import</span> urlopen, Request</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line"></span><br><span class="line"><span class="comment">#钉钉机器人接口函数</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DingDing</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, token</span>):</span></span><br><span class="line">        self.url = <span class="string">&#x27;https://oapi.dingtalk.com/robot/send?access_token=%s&#x27;</span> % token</span><br><span class="line">        self.headers = &#123;<span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json&#x27;</span>&#125;</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_text</span>(<span class="params">self, text, at_mobiles=[], at_all=<span class="literal">False</span></span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        例子: send_text(&#x27;天气不错&#x27;, [&#x27;13333333333&#x27;])</span></span><br><span class="line"><span class="string">        :param text: 消息类型，此时固定为:text</span></span><br><span class="line"><span class="string">        :param at_mobiles: 被@人的手机号 [&#x27;13333333333&#x27;, ]</span></span><br><span class="line"><span class="string">        :param at_all: @所有人时:true,否则为:false</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> self._send_text(text, at_mobiles, at_all)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_link</span>(<span class="params">self, title, text, message_url=<span class="string">&#x27;&#x27;</span>, pic_url=<span class="string">&#x27;&#x27;</span></span>):</span></span><br><span class="line">        <span class="keyword">return</span> self._send_link(title, text, message_url, pic_url)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_markdown</span>(<span class="params">self, title, text, at_mobiles=[], at_all=<span class="literal">False</span></span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;发送markdown格式</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        :param title: 首屏会话透出的展示内容</span></span><br><span class="line"><span class="string">        :param text: markdown格式的消息</span></span><br><span class="line"><span class="string">        :param at_mobiles: 被@人的手机号(在text内容里要有@手机号)</span></span><br><span class="line"><span class="string">        :param at_all: @所有人时:true,否则为:false</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> self._send_markdown(title, text, at_mobiles, at_all)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_single_action_card</span>(<span class="params">self, title, text, single_title, single_url, btn_orientation=<span class="string">&#x27;0&#x27;</span>, hide_avatar=<span class="string">&#x27;0&#x27;</span></span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;整体跳转ActionCard类型</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        :param title: 首屏会话透出的展示内容</span></span><br><span class="line"><span class="string">        :param text: markdown格式的消息</span></span><br><span class="line"><span class="string">        :param single_title: 单个按钮的方案。(设置此项和singleURL后btns无效。)</span></span><br><span class="line"><span class="string">        :param single_url: 点击singleTitle按钮触发的URL</span></span><br><span class="line"><span class="string">        :param btn_orientation: 0-按钮竖直排列，1-按钮横向排列</span></span><br><span class="line"><span class="string">        :param hide_avatar: 0-正常发消息者头像,1-隐藏发消息者头像</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> self._send_single_action_card(title, text, single_title, single_url, btn_orientation, hide_avatar)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_action_card</span>(<span class="params">self, title, text, btns, btn_orientation=<span class="string">&#x27;0&#x27;</span>, hide_avatar=<span class="string">&#x27;0&#x27;</span></span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;独立跳转ActionCard类型</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        :param title: 首屏会话透出的展示内容</span></span><br><span class="line"><span class="string">        :param text: markdown格式的消息</span></span><br><span class="line"><span class="string">        :param btns: 按钮的信息：title-按钮方案，actionURL-点击按钮触发的URL</span></span><br><span class="line"><span class="string">        :param btn_orientation: 0-按钮竖直排列，1-按钮横向排列</span></span><br><span class="line"><span class="string">        :param hide_avatar: 0-正常发消息者头像,1-隐藏发消息者头像</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> self._send_action_card(title, text, btns, btn_orientation, hide_avatar)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_feed_card</span>(<span class="params">self, rows</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;FeedCard类型</span></span><br><span class="line"><span class="string">        例子: send_feed_card([(&#x27;学vue&#x27;,&#x27;https://cn.vuejs.org/&#x27;,&#x27;https://cn.vuejs.org/images/logo.png&#x27;),</span></span><br><span class="line"><span class="string">                     (&#x27;哪家强&#x27;, &#x27;https://cn.vuejs.org/&#x27;, &#x27;https://cn.vuejs.org/images/logo.png&#x27;)])</span></span><br><span class="line"><span class="string">        :param rows: [(title, messageURL, picURL), (...)]</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> self._send_feed_card(rows)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_send_feed_card</span>(<span class="params">self, rows</span>):</span></span><br><span class="line">        rows = [&#123;<span class="string">&#x27;title&#x27;</span>: row[<span class="number">0</span>], <span class="string">&#x27;messageURL&#x27;</span>: row[<span class="number">1</span>], <span class="string">&#x27;picURL&#x27;</span>: row[<span class="number">2</span>]&#125; <span class="keyword">for</span> row <span class="keyword">in</span> rows]</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">&#x27;feedCard&#x27;</span>: &#123;</span><br><span class="line">                <span class="string">&#x27;links&#x27;</span>: rows</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&#x27;msgtype&#x27;</span>: <span class="string">&#x27;feedCard&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> self._post(data)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_send_action_card</span>(<span class="params">self, title, text, btns, btn_orientation, hide_avatar</span>):</span></span><br><span class="line">        btns = [&#123;<span class="string">&#x27;title&#x27;</span>: btn[<span class="number">0</span>], <span class="string">&#x27;actionURL&#x27;</span>: btn[<span class="number">1</span>]&#125; <span class="keyword">for</span> btn <span class="keyword">in</span> btns]</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">&quot;actionCard&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;title&quot;</span>: title,</span><br><span class="line">                <span class="string">&quot;text&quot;</span>: text,</span><br><span class="line">                <span class="string">&quot;hideAvatar&quot;</span>: hide_avatar,</span><br><span class="line">                <span class="string">&quot;btnOrientation&quot;</span>: btn_orientation,</span><br><span class="line">                <span class="string">&quot;btns&quot;</span>: btns</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;msgtype&quot;</span>: <span class="string">&quot;actionCard&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> self._post(data)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_send_single_action_card</span>(<span class="params">self, title, text, single_title, single_url, btn_orientation, hide_avatar</span>):</span></span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">&quot;actionCard&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;title&quot;</span>: title,</span><br><span class="line">                <span class="string">&quot;text&quot;</span>: text,</span><br><span class="line">                <span class="string">&quot;hideAvatar&quot;</span>: hide_avatar,</span><br><span class="line">                <span class="string">&quot;btnOrientation&quot;</span>: btn_orientation,</span><br><span class="line">                <span class="string">&quot;singleTitle&quot;</span>: single_title,</span><br><span class="line">                <span class="string">&quot;singleURL&quot;</span>: single_url</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;msgtype&quot;</span>: <span class="string">&quot;actionCard&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> self._post(data)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_send_markdown</span>(<span class="params">self, title, text, at_mobiles, at_all</span>):</span></span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">&quot;msgtype&quot;</span>: <span class="string">&quot;markdown&quot;</span>,</span><br><span class="line">            <span class="string">&quot;markdown&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;title&quot;</span>: title,</span><br><span class="line">                <span class="string">&quot;text&quot;</span>: text</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;at&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;atMobiles&quot;</span>: at_mobiles,</span><br><span class="line">                <span class="string">&quot;isAtAll&quot;</span>: at_all</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> self._post(data)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_send_text</span>(<span class="params">self, text, at_mobiles, at_all</span>):</span></span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">&quot;msgtype&quot;</span>: <span class="string">&quot;text&quot;</span>,</span><br><span class="line">            <span class="string">&quot;text&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;content&quot;</span>: text</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;at&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;atMobiles&quot;</span>: at_mobiles,</span><br><span class="line">                <span class="string">&quot;isAtAll&quot;</span>: at_all</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> self._post(data)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_send_link</span>(<span class="params">self, title, text, message_url, pic_url</span>):</span></span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">&quot;msgtype&quot;</span>: <span class="string">&quot;link&quot;</span>,</span><br><span class="line">            <span class="string">&quot;link&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;text&quot;</span>: text,</span><br><span class="line">                <span class="string">&quot;title&quot;</span>: title,</span><br><span class="line">                <span class="string">&quot;picUrl&quot;</span>: pic_url,</span><br><span class="line">                <span class="string">&quot;messageUrl&quot;</span>: message_url</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> self._post(data)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_post</span>(<span class="params">self, data</span>):</span></span><br><span class="line">        data = json.dumps(data)</span><br><span class="line">        req = Request(self.url, data=data.encode(<span class="string">&#x27;utf-8&#x27;</span>), headers=self.headers)</span><br><span class="line">        _context = ssl._create_unverified_context()</span><br><span class="line">        response = urlopen(req, context=_context)</span><br><span class="line">        the_page = response.read()</span><br><span class="line">        <span class="keyword">return</span> json.loads(the_page.decode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">#获取树莓派ip地址</span></span><br><span class="line"><span class="comment"># def get_ip_address():</span></span><br><span class="line"><span class="comment">#     s =socket.socket(socket.AF_INET,socket.SOCK_DGRAM)</span></span><br><span class="line"><span class="comment">#     s.connect((&quot;1.1.1.1&quot;,80))</span></span><br><span class="line"><span class="comment">#     ipaddr=s.getsockname()[0]</span></span><br><span class="line"><span class="comment">#     s.close()</span></span><br><span class="line"><span class="comment">#     return ipaddr</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#获取树莓派cpu温度</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_pi_temperature</span>():</span></span><br><span class="line">    file = <span class="built_in">open</span>(<span class="string">&quot;/sys/class/thermal/thermal_zone0/temp&quot;</span>)</span><br><span class="line">    temp = <span class="built_in">float</span>(file.read()) / <span class="number">1000</span></span><br><span class="line">    <span class="keyword">return</span> temp</span><br><span class="line"><span class="comment">#处理温度数据</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_temp</span>():</span></span><br><span class="line">    time_str = time.strftime(<span class="string">&quot;[%Y-%m-%d %H:%M:%S]&quot;</span>,time.location(time.time()))</span><br><span class="line">    <span class="comment">#ip = get_ip_address()</span></span><br><span class="line">    max_temp = <span class="number">50</span> 																<span class="comment">#温度阀值</span></span><br><span class="line">    cnt = <span class="number">0</span>																		<span class="comment">#记录温度超过阀值的次数</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        now_temp = get_pi_temperature()</span><br><span class="line">        <span class="comment">#print(&quot;打印cpu温度：&quot;, now_temp)										#调试的时候用到</span></span><br><span class="line">        <span class="keyword">if</span> now_temp &gt; max_temp:</span><br><span class="line">            message = time_str + <span class="string">&quot;请注意！当前设备温度较高，请给它浇点水&quot;</span> + <span class="built_in">str</span>(now_temp)</span><br><span class="line">            cnt += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            cnt = <span class="number">0</span></span><br><span class="line">            message = <span class="string">&quot;当前温度:&quot;</span> + <span class="built_in">str</span>(now_temp) </span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(cnt &gt; <span class="number">10</span>):</span><br><span class="line">            <span class="comment"># 下面的DingDing里面的参数为ding_token，在创建自定义机器人的时候就能获得</span></span><br><span class="line">            ding = DingDing(<span class="string">&quot;3245354254.......&quot;</span>)</span><br><span class="line">            ding.send_text(message,<span class="string">&quot;这里填入手机号码&quot;</span>)</span><br><span class="line">            cnt = <span class="number">0</span></span><br><span class="line">        time.sleep(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    time.sleep(<span class="number">30</span>) <span class="comment">#这个延时一定要加！等待树莓派开机连接网络！</span></span><br><span class="line">    send_message()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这个脚本有很大的扩展性，可以根据需要改写程序增加功能。接下来就是测试程序能否正常运行。</p>
+<h4 id="调试脚本"><a href="#调试脚本" class="headerlink" title="调试脚本"></a>调试脚本</h4><ul>
+<li>将脚本被打印函数的注释去掉，方便查看运行状态</li>
+<li>将阀值调低，根据实际场景，尽可能让设备程序容易触碰到阀值，一般我的pi工作温度在39-40度，我设置成了39°去测试</li>
+</ul>
+<p>回到命令行，输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 send_temp.py <span class="comment">#根据自己实际路径调整</span></span><br></pre></td></tr></table></figure>
+
+<p>正确的场景下，可以看到类似的信息</p>
+<img src="https://pic.imgdb.cn/item/61458d422ab3f51d91579688.jpg" alt="温度预警信息" style="zoom: 25%;" />
+
+<p>确认程序没问之后，把打印的注释关掉，并且调整好温度阀值。</p>
+<h4 id="让脚本自动开机运行"><a href="#让脚本自动开机运行" class="headerlink" title="让脚本自动开机运行"></a>让脚本自动开机运行</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc</span><br><span class="line">sudo vim rc.local</span><br></pre></td></tr></table></figure>
+
+<p>在exit0之前，加入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python3 /home/pi/send_temp.py </span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
+
+<p>重启即可。</p>
+<p>欢迎关注<a target="_blank" rel="noopener" href="https://www.nikooo.site/">个人论坛</a>和<a target="_blank" rel="noopener" href="https://www.kaqiup.xyz/">个人博客</a>以获取更多信息。</p>
+<p>–END–</p>
+
+        </div>
+
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Jugolink</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://markipop.github.io/posts/d9e112c3/">https://markipop.github.io/posts/d9e112c3/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2021 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+            </section>
+        
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/posts/11998d59/">树莓派开箱上机后要做的事</a>
+            
+            
+            <a class="next" rel="next" href="/posts/24e54465/">mac下部署博客到云服务器</a>
+            
+
+        </section>
+        <section class="post-tags">
+            <!-- <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                        
+                            <a href="/tags/raspberry/"># raspberry</a>
+                        
+                            <a href="/tags/python/"># python</a>
+                        
+                    
+                </span>
+            </div> 
+           <div>
+                <a href="javascript:window.history.back();">Back</a>
+                <span>· </span>
+                <a href="/">Home</a>
+            </div> -->
+        </section>
+        
+        <section class="post-comments">
+            <style>
+    .twikoo-card {
+        margin: 1.5rem auto;
+    }
+
+    .twikoo-card .card-content {
+        padding: 0px;
+    }
+
+    #tcomments textarea {
+        box-sizing: border-box;
+        background: url("/") 100% 100% no-repeat;
+    }
+
+    #tcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #tcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #tcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #tcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #tcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #tcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #tcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #tcomments ul li {
+        list-style-type: disc;
+    }
+
+    #tcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n),
+    thead {
+        background-color: #fafafa;
+    }
+
+    #tcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #tcomments table td {
+        min-width: 80px;
+    }
+
+    #tcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #tcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #tcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #tcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #tcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #tcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #tcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #tcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #tcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #tcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #tcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #tcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #tcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #tcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #tcomments [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #tcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #tcomments dfn {
+        font-style: italic;
+    }
+
+    #tcomments small {
+        font-size: 85%;
+    }
+
+    #tcomments cite {
+        font-style: normal;
+    }
+
+    #tcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n),
+    thead {
+        background-color: #fafafa;
+    }
+
+    #tcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #tcomments table td {
+        min-width: 80px;
+    }
+
+    #tcomments [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card twikoo-card" data-aos="fade-up">
+    <div class="comment_headling center-align" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="card-content" style="display: grid">
+        <div id="tcomments"></div>
+    </div>
+</div>
+<!-- hp,add 20211104 -->
+<script src="https://cdn.jsdelivr.net/npm/twikoo@1.4.10/dist/twikoo.all.min.js"></script>
+<script>
+    twikoo.init({
+            envId: 'https://twikooo.vercel.app/',
+            el: '#tcomments',
+            region: '',
+            path: ''
+        }).then(function () {
+            var tkInputs = document.querySelector('#twikoo').getElementsByTagName('input');
+            for (var tkInputsIndex = 0; tkInputsIndex < tkInputs.length; tkInputsIndex++) {
+                if (tkInputs[tkInputsIndex]) {
+                    tkInputs[tkInputsIndex].classList.add('browser-default');
+                }
+            }
+        });
+</script>
+
+        </section>
+
+
+    </article>
+    
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© 2021 Jugolink</span>
+    </div>
+    <!-- <div id="flyfish" class="fly-fish" height="200"></div> -->
+</footer>
+ 
+<!-- <script src="themes/Chic/source/js/fish.js"></script> -->
+
+ 
+
+    </div>
+</body>
+
+</html>

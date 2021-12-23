@@ -13,7 +13,7 @@
 
 
 
-<title>Hello World | Jugolink&#39;s Blog</title>
+<title>mac下部署博客到云服务器 | Jugolink&#39;s Blog</title>
 
 
 
@@ -40,6 +40,45 @@
 
     
     
+        
+            <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
         
     
 
@@ -195,7 +234,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Hello World</h1>
+            <h1 class="post-title">mac下部署博客到云服务器</h1>
             
                 <div class="post-meta">
                     
@@ -204,13 +243,24 @@
                     
                     
                         <span class="post-time">
-                        Date: <a href="#">December 23, 2021&nbsp;&nbsp;7:53:20</a>
+                        Date: <a href="#">November 14, 2021&nbsp;&nbsp;23:35:00</a>
                         </span>
                     
              
                     
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
+                            
+                        </span>
+                    
                     <span>Tag(s):</span>
                     <span class="tag">
+                        
+                            
+                                <a href="/tags/%E9%83%A8%E7%BD%B2/"># 部署</a>
+                            
                         
                     </span>
                 </div>
@@ -218,19 +268,41 @@
         </header>
 
         <div class="post-content">
-            <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+            <h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>在过去没有云服务器的日子里，无数个日夜都是往github page推送博客文章，需要忍受的不止是不只是网速问题，在没有科学上网的条件下甚至你都看不到自己的仓库文件，如果有了云服务器那么这件事情就会变得简单许多。这篇文章就是问了描述在macos系统中，如何将本地博客推送到云端，不带出错的。</p>
+<h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p>当然，你得有个云服务器才有后边的话，并且这里假设你已经在本地搭建好了博客，并且运行正常，基于这些条件，谈推送才有意义。</p>
+<h3 id="服务端配置"><a href="#服务端配置" class="headerlink" title="服务端配置"></a>服务端配置</h3><p>云服务器安装的是centos，并且已经安装好了宝塔面板，有了宝塔面板管理和部署都会变得容易很多，以下内容假设你已经熟悉使用宝塔面板，如果还不熟悉，那就去熟悉吧。如果你不知道如何安装宝塔面板，可以看这里：<a target="_blank" rel="noopener" href="https://www.bt.cn/bbs/thread-19376-1-1.html">传送门</a></p>
+<ol>
+<li><p>登陆宝塔面板，网站栏目点击<code>添加站点</code>，填好域名，不需要ftp/数据库，php版本选纯静态，创建站点。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">示例：</span><br><span class="line">域名：</span><br><span class="line">xiaoqiang.com</span><br><span class="line">www.xiaoqiang.com</span><br></pre></td></tr></table></figure></li>
+<li><p>从面板的文件栏目，找到/www/wwwroot/xiaoqiang.com，进入文件夹，删除里边初始化的几个文件。</p>
+</li>
+<li><p>创建git仓库</p>
+<p>路径随意，好记就行。这里演示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir /home/git/repos</span><br><span class="line"><span class="built_in">cd</span> /home/git/repos</span><br><span class="line">git init --bare xiaoqiang.git</span><br></pre></td></tr></table></figure></li>
+<li><p>找到<code>/home/git/repos/taiblog.git/hooks/post-update.sample</code>，将<strong>post-update.sample</strong>文件名改为<strong>post-update</strong>，没错，就这样改。然后鼠标右键点击这个文件，修改权限，默认就好，以确认此文件拥有可执行权限。</p>
+</li>
+<li><p>配置钩子实现自动部署，打开post-update文件，原内容注释，，新增</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git --work-tree=/www/wwwroot/xiaoqiang.com --git-dir=/home/git/repos/xiaoqiang.git checkout -f</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="本地配置"><a href="#本地配置" class="headerlink" title="本地配置"></a>本地配置</h3><ol>
+<li><p>博客的deploy需要安装插件。在终端文件路径切到博客所在的路径，运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></li>
+<li><p>编辑器打开<code>_config.yml</code>文件，找到<strong>deplop</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#如果你的服务器ssh端口是默认的「22」，就要参考如下修改</span></span><br><span class="line"><span class="built_in">type</span>: git</span><br><span class="line">repo: mahuateng@服务器公网ip:/home/git/repos/xiaoqiang.git</span><br><span class="line">branch: master</span><br><span class="line"><span class="comment">#如果修改过端口，参考如下</span></span><br><span class="line"><span class="built_in">type</span>: git</span><br><span class="line">repo: ssh://mahuateng@服务器公网ip:你修改的ssh端口/home/git/repos/xiaoqiang.git</span><br><span class="line">branch: master</span><br></pre></td></tr></table></figure></li>
+<li><p>测试推送本地文件到远端</p>
+<p>终端运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>初次推送会提示验证你的身份，可能跳出内容如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email <span class="string">&quot;you@example.com&quot;</span></span><br><span class="line">git config --global user.name <span class="string">&quot;Your Name&quot;</span></span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>输入你github的的邮箱和用户名，重新运行<code>hexo clean &amp;&amp; hexo g -d</code>即可。</p>
+</li>
+<li><p>推送完成后，你可以从宝塔面板的文件栏目找到<code>/www/wwwroot/xiaoqiang.com</code>目录下，多了些文件，那就是推送的所有内容，如果你是部署在github pages，也是会看到这些文件。</p>
+</li>
+</ol>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/one-command-deployment.html">hexo部署</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43219561/article/details/116719535"> 将Hexo部署到云服务器</a></p>
 
         </div>
 
@@ -246,7 +318,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://markipop.github.io/posts/4a17b156/">https://markipop.github.io/posts/4a17b156/</a></span>
+                        <span><a href="https://markipop.github.io/posts/24e54465/">https://markipop.github.io/posts/24e54465/</a></span>
                     </p>
                 
                 
@@ -260,8 +332,10 @@
         
         <section class="post-nav">
             
+                <a class="prev" rel="prev" href="/posts/d9e112c3/">CPU温度实时预警并将信息发送到钉钉</a>
             
-            <a class="next" rel="next" href="/posts/463fd0e9/">Hexo部署后Github Pages自定义域名失效解决方案</a>
+            
+            <a class="next" rel="next" href="/posts/af6d569a/">mac下搭建hexo</a>
             
 
         </section>
@@ -269,6 +343,10 @@
             <!-- <div>
                 <span>Tag(s):</span>
                 <span class="tag">
+                    
+                        
+                            <a href="/tags/%E9%83%A8%E7%BD%B2/"># 部署</a>
+                        
                     
                 </span>
             </div> 

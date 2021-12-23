@@ -13,7 +13,7 @@
 
 
 
-<title>Hello World | Jugolink&#39;s Blog</title>
+<title>树莓派安装中文输入法 | Jugolink&#39;s Blog</title>
 
 
 
@@ -40,6 +40,45 @@
 
     
     
+        
+            <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
         
     
 
@@ -195,7 +234,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Hello World</h1>
+            <h1 class="post-title">树莓派安装中文输入法</h1>
             
                 <div class="post-meta">
                     
@@ -204,13 +243,24 @@
                     
                     
                         <span class="post-time">
-                        Date: <a href="#">December 23, 2021&nbsp;&nbsp;7:53:20</a>
+                        Date: <a href="#">November 14, 2021&nbsp;&nbsp;23:55:00</a>
                         </span>
                     
              
                     
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
+                            
+                        </span>
+                    
                     <span>Tag(s):</span>
                     <span class="tag">
+                        
+                            
+                                <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"># 树莓派</a>
+                            
                         
                     </span>
                 </div>
@@ -218,19 +268,11 @@
         </header>
 
         <div class="post-content">
-            <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+            <blockquote>
+<p>介绍：<br>图形界面的树莓派有时用到中文输入法，以下是安装中文输入法的方法</p>
+</blockquote>
+<h2 id="安装中文输入法"><a href="#安装中文输入法" class="headerlink" title="安装中文输入法"></a>安装中文输入法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install fcitx fcitx-googlepinyin fcitx-module-cloudpinyin fcitx-sunpinyin</span><br></pre></td></tr></table></figure>
+<p>安装完成后，重启。<br>在菜单<strong>preference</strong>中，找到<code>fcitx configuration</code>，取消勾选<code>only show current language</code>，添加<code>google pinyin</code>即可。</p>
 
         </div>
 
@@ -246,7 +288,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://markipop.github.io/posts/4a17b156/">https://markipop.github.io/posts/4a17b156/</a></span>
+                        <span><a href="https://markipop.github.io/posts/a7f612dd/">https://markipop.github.io/posts/a7f612dd/</a></span>
                     </p>
                 
                 
@@ -260,8 +302,10 @@
         
         <section class="post-nav">
             
+                <a class="prev" rel="prev" href="/posts/9f895c2e/">树莓派samba安装，实现局域网可读文件夹共享</a>
             
-            <a class="next" rel="next" href="/posts/463fd0e9/">Hexo部署后Github Pages自定义域名失效解决方案</a>
+            
+            <a class="next" rel="next" href="/posts/6c0957e8/">Pi-dashboard</a>
             
 
         </section>
@@ -269,6 +313,10 @@
             <!-- <div>
                 <span>Tag(s):</span>
                 <span class="tag">
+                    
+                        
+                            <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"># 树莓派</a>
+                        
                     
                 </span>
             </div> 

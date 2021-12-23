@@ -37,6 +37,105 @@
     <priority>0.6</priority>
   </url>
   
+  <url>
+    <loc>https://markipop.github.io/posts/463fd0e9/</loc>
+    
+    <lastmod>2021-11-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://markipop.github.io/posts/64479a0f/</loc>
+    
+    <lastmod>2021-11-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://markipop.github.io/posts/6b74976/</loc>
+    
+    <lastmod>2021-11-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://markipop.github.io/posts/9f895c2e/</loc>
+    
+    <lastmod>2021-11-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://markipop.github.io/posts/45f0cf50/</loc>
+    
+    <lastmod>2021-11-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://markipop.github.io/posts/a7f612dd/</loc>
+    
+    <lastmod>2021-11-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://markipop.github.io/posts/6c0957e8/</loc>
+    
+    <lastmod>2021-11-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://markipop.github.io/posts/11998d59/</loc>
+    
+    <lastmod>2021-11-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://markipop.github.io/posts/d9e112c3/</loc>
+    
+    <lastmod>2021-11-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://markipop.github.io/posts/24e54465/</loc>
+    
+    <lastmod>2021-11-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://markipop.github.io/posts/af6d569a/</loc>
+    
+    <lastmod>2021-11-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
   <url>
     <loc>https://markipop.github.io/</loc>
@@ -46,6 +145,48 @@
   </url>
 
   
+  <url>
+    <loc>https://markipop.github.io/tags/raspberry/</loc>
+    <lastmod>2021-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://markipop.github.io/tags/python/</loc>
+    <lastmod>2021-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://markipop.github.io/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/</loc>
+    <lastmod>2021-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://markipop.github.io/tags/%E9%83%A8%E7%BD%B2/</loc>
+    <lastmod>2021-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://markipop.github.io/tags/hexo/</loc>
+    <lastmod>2021-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
+  
+  <url>
+    <loc>https://markipop.github.io/categories/%E6%95%99%E7%A8%8B/</loc>
+    <lastmod>2021-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
   
 </urlset>

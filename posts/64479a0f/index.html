@@ -13,7 +13,7 @@
 
 
 
-<title>Hello World | Jugolink&#39;s Blog</title>
+<title>黑苹果更新opencore版本 | Jugolink&#39;s Blog</title>
 
 
 
@@ -195,7 +195,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Hello World</h1>
+            <h1 class="post-title">黑苹果更新opencore版本</h1>
             
                 <div class="post-meta">
                     
@@ -204,10 +204,17 @@
                     
                     
                         <span class="post-time">
-                        Date: <a href="#">December 23, 2021&nbsp;&nbsp;7:53:20</a>
+                        Date: <a href="#">November 15, 2021&nbsp;&nbsp;0:01:00</a>
                         </span>
                     
              
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
+                            
+                        </span>
                     
                     <span>Tag(s):</span>
                     <span class="tag">
@@ -218,19 +225,88 @@
         </header>
 
         <div class="post-content">
-            <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+            <h2 id="黑苹果更新opencore版本"><a href="#黑苹果更新opencore版本" class="headerlink" title="黑苹果更新opencore版本"></a>黑苹果更新opencore版本</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>属性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>笔记本型号</td>
+<td>暗影精灵5</td>
+</tr>
+<tr>
+<td>系统版本</td>
+<td>Big sur 11.6</td>
+</tr>
+<tr>
+<td>Opencore版本</td>
+<td>0.6.3</td>
+</tr>
+</tbody></table>
+<p>今天偶然逛<a target="_blank" rel="noopener" href="https://blog.hibobmaster.com/hp-15-dc1010nr-hackintosh/">BobMaster’s Blog</a>，看到了BobMaster更新的OC文件，在此之前我一直用的是他开放出来的0.6.3版本的EFI文件。这个版本伴随着我更新到了11.6最新的正式版，</p>
+<p>平时使用一切ok，除了<strong>蓝牙共享</strong>有些问题（无法通过手机/ipad/电脑直接通过蓝牙分享文件），其他都很好。只是不知道更新到最新的OC版本是否会解决这个问题。</p>
+<p>这篇笔记的前提是有了正常使用的苹果系统，需要做的只是替换OC相关的文件。</p>
+<p>因为用的是双系统，所以既可以在windows下操作也可以在macOS下操作OC版本更迭，方便就好，我是在windows下整的。</p>
+<p>使用DiskGenius来操作。</p>
+<h3 id="下载EFI文件"><a href="#下载EFI文件" class="headerlink" title="下载EFI文件"></a>下载EFI文件</h3><ul>
+<li>从<a target="_blank" rel="noopener" href="https://github.com/hibobmaster/HP-15-dc1010nr-hackintosh/releases">github.com</a>下载最新版本的EFI文件</li>
+</ul>
+<h3 id="备份原EFI文件"><a href="#备份原EFI文件" class="headerlink" title="备份原EFI文件"></a>备份原EFI文件</h3><p>备份十分重要！！！万一错误操作或者EFI不合适，可能直接让电脑重启后无法正常引导启动。</p>
+<p><img src="https://pic.imgdb.cn/item/6161feec2ab3f51d91b7ff04.png" alt="备份原EFI文件"></p>
+<h3 id="替换EFI"><a href="#替换EFI" class="headerlink" title="替换EFI"></a>替换EFI</h3><p>，确认备份好整个EFI文件后</p>
+<ol>
+<li>找到系统引导文件存放的位置，删除OC文件以及<strong>Boot文件目录下</strong>的BOOTx64.efi文件。</li>
+</ol>
+<p><img src="https://pic.imgdb.cn/item/6161ff082ab3f51d91b81542.png" alt="需要替换的部分"></p>
+<ol start="2">
+<li><p>将下载好的EFI文件解压缩，然后在EFI的目录下找到下图红框标注的部分。</p>
+<p><img src="https://pic.imgdb.cn/item/6161ff1a2ab3f51d91b82356.png" alt="下载的最新EFI版本"></p>
+</li>
+<li><p>将解压好的EFI文件中<strong>OC</strong>文件夹拖入第1步删除OC文件的位置，将BOOT下<strong>BOOTx64.efi</strong>拖入到Boot文件的目录内。</p>
+<p><img src="https://pic.imgdb.cn/item/6161ff2b2ab3f51d91b83011.png" alt="替换的BOOTx64.efi文件"></p>
+<p><img src="https://pic.imgdb.cn/item/6161ff3a2ab3f51d91b83a9a.png" alt="替换的OC文件"></p>
+</li>
+<li><p>完成之后不要忘了查看<strong>报告</strong>，以确定转移过程没有出错。</p>
+</li>
+</ol>
+<h3 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h3><p>重启检查是否有错，如果出现了引导失败的情况就需要确认是否有将BOOTx64.efi文件替换成压缩包内的最新版本的文件，如果遇到了其他问题，欢迎留言。</p>
+<p>重启正常的话，会进入和未更新前类似的文字界面，下一步以选择哪个系统。</p>
+<p>有关更新0.7.4版本更新的内容，以及对应这一版本修改的内容，可以参考官网和<a target="_blank" rel="noopener" href="https://blog.hibobmaster.com/hp-15-dc1010nr-hackintosh/">BobMaster’s Blog</a></p>
+<h2 id="Opencore图形引导界面"><a href="#Opencore图形引导界面" class="headerlink" title="Opencore图形引导界面"></a>Opencore图形引导界面</h2><p>因为上一步下载的EFI文件精简过，省去了不必要的一些东西，其中就包括图形引导界面。</p>
+<p>我这里只添加了图形引导，至于开机音频就没有添加了，如果你也想要图形引导界面，接着往下看就好了。</p>
+<h3 id="编辑Opencore"><a href="#编辑Opencore" class="headerlink" title="编辑Opencore"></a>编辑Opencore</h3><blockquote>
+<p>可以用官方的编辑器，也可以用第三方的，建议还是用官方的，减小污染配置文件的可能性。我用的是OCAT，第三方的，链接可以百度，挺好找的，如果找不到，可以留言。</p>
+</blockquote>
+<h4 id="补充文件"><a href="#补充文件" class="headerlink" title="补充文件"></a>补充文件</h4><ol>
+<li><p>将上一步正常跑的OC文件备份出来，方便操作，等所有东西弄完，直接覆盖引导分区内引导文件，简单粗暴。</p>
+</li>
+<li><p>去官网下载对应版本的完整的Opencore文件，因为我清楚我下载的是0.7.4版本，所以我也找了官方的对应完整版本。</p>
+</li>
+<li><p>解压官网下载的完整版的文件，从EFI\OC\Drivers\中找到OpenCanopy.efi文件，复制下来，粘贴到备份好的OC文件对应的目录下。</p>
+<blockquote>
+<p>注意：这里需要注意Opencanopy文件和opencore版本需要一致！</p>
+</blockquote>
+</li>
+<li><p>补充resourse文件夹的资源，这里使用<a target="_blank" rel="noopener" href="https://tieba.baidu.com/p/7142905955">lxyoucan</a>分享的，<a target="_blank" rel="noopener" href="http://jump2.bdimg.com/safecheck/index?url=rN3wPs8te/pjz8pBqGzzzz3wi8AXlR5g1NgdDpM6gxJXTkajOT0Hv11d2FANTybPZGLoKTnA57MAcjD0XRmkLTcU1fL0ty3/eaabVMyh+D1WG2/VI+ilRlwX/zI1FpEcVSfuHbb4O1XzHdLk4O/fjSfSu/xsVqwzinJQiWmZ7uR2Pah4egTNMg==">https://pan.baidu.com/s/1qnnBumyc3ZanuI04OACasg </a>提取码: b7ps</p>
+<p><img src="https://pic.imgdb.cn/item/6161ff582ab3f51d91b84ef1.png" alt="Resources文件资源"></p>
+</li>
+<li><p>接下来就简单了，下载好后吧对应的文件分别拖放覆盖</p>
+</li>
+</ol>
+<h4 id="编辑config-plist文件"><a href="#编辑config-plist文件" class="headerlink" title="编辑config.plist文件"></a>编辑<strong>config.plist</strong>文件</h4><ol>
+<li>用OCAT打开备份出来的OC文件中<strong>config.plist</strong>文件</li>
+<li>修改Misc -&gt; Boot -&gt; PickerMode为External</li>
+<li>修改Misc -&gt; Boot -&gt; PickerAttributes为1</li>
+<li>UEFI-&gt;Drivers-&gt; 添加OpenCanopy.efi（路径所在）</li>
+</ol>
+<h4 id="生成EFI文件"><a href="#生成EFI文件" class="headerlink" title="生成EFI文件"></a>生成EFI文件</h4><h4 id="完善EFI文件"><a href="#完善EFI文件" class="headerlink" title="完善EFI文件"></a>完善EFI文件</h4><p>将备份的OC文件内<strong>ACPI</strong>、<strong>Drivers</strong>、<strong>Kexts</strong>分别拖放到新生成的EFI文件</p>
+<h4 id="替换EFI-1"><a href="#替换EFI-1" class="headerlink" title="替换EFI"></a>替换EFI</h4><p>这一步其实就是本篇第一节替换EFI的内容，这里就不赘述了，卡在细节问题时，解决不了可以留言在博客中</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>回顾一下，这篇写了如何在现有ok的opencore文件下，更新旧版本的opencore文件，其次写了如何在精简版的opencore上增加图形引导界面。</p>
+<p>码字是真的累，细节细节再细节，很多人可能不愿意写的繁琐步骤，我捡起来了，虽然自己觉得也没太大意义，但贵在分享互助嘛，也仅有此才足够聊以自慰了，其次也只是因为爱好罢了。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://blog.hibobmaster.com/hp-15-dc1010nr-hackintosh/">暗影精灵5之OpenCore引导黑苹果 – BobMaster’s Blog (hibobmaster.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://tieba.baidu.com/p/7142905955?pid=136956878371&cid=#136956878371">【图片】OpenCore 启动菜单界面美化增加gui界面【opencore吧】_百度贴吧 (baidu.com)</a></p>
 
         </div>
 
@@ -246,7 +322,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://markipop.github.io/posts/4a17b156/">https://markipop.github.io/posts/4a17b156/</a></span>
+                        <span><a href="https://markipop.github.io/posts/64479a0f/">https://markipop.github.io/posts/64479a0f/</a></span>
                     </p>
                 
                 
@@ -260,8 +336,10 @@
         
         <section class="post-nav">
             
+                <a class="prev" rel="prev" href="/posts/463fd0e9/">Hexo部署后Github Pages自定义域名失效解决方案</a>
             
-            <a class="next" rel="next" href="/posts/463fd0e9/">Hexo部署后Github Pages自定义域名失效解决方案</a>
+            
+            <a class="next" rel="next" href="/posts/6b74976/">优化温度预警</a>
             
 
         </section>

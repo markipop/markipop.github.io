@@ -13,7 +13,7 @@
 
 
 
-<title>Hello World | Jugolink&#39;s Blog</title>
+<title>Pi-dashboard | Jugolink&#39;s Blog</title>
 
 
 
@@ -40,6 +40,45 @@
 
     
     
+        
+            <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
         
     
 
@@ -195,7 +234,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Hello World</h1>
+            <h1 class="post-title">Pi-dashboard</h1>
             
                 <div class="post-meta">
                     
@@ -204,13 +243,24 @@
                     
                     
                         <span class="post-time">
-                        Date: <a href="#">December 23, 2021&nbsp;&nbsp;7:53:20</a>
+                        Date: <a href="#">November 14, 2021&nbsp;&nbsp;23:53:00</a>
                         </span>
                     
              
                     
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
+                            
+                        </span>
+                    
                     <span>Tag(s):</span>
                     <span class="tag">
+                        
+                            
+                                <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"># 树莓派</a>
+                            
                         
                     </span>
                 </div>
@@ -218,19 +268,50 @@
         </header>
 
         <div class="post-content">
-            <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+            <p>Pi Dashboard (Pi 仪表盘) 是一个开源的 IoT 设备监控工具，目前主要针对树莓派平台，也尽可能兼容其他类树莓派硬件产品。你只需要在树莓派上安装好 PHP 服务器环境，即可方便的部署一个 Pi 仪表盘，通过炫酷的 WebUI 来监控树莓派的状态！</p>
+<p>目前已加入的监测项目有：</p>
+<ul>
+<li>CPU 基本信息、状态和使用率等实时数据</li>
+<li>内存、缓存、SWAP分区使用的实时数据</li>
+<li>SD卡（磁盘）的占用情况</li>
+<li>实时负载数据</li>
+<li>实施进程数据</li>
+<li>网络接口的实时数据</li>
+<li>树莓派IP、运行时间、操作系统、HOST 等基础信息</li>
+</ul>
+<h2 id="仪表盘预览"><a href="#仪表盘预览" class="headerlink" title="仪表盘预览"></a>仪表盘预览</h2><p><img src="https://shumeipai.nxez.com/wp-content/uploads/2017/08/20170831005933963-0.jpg" alt="img"></p>
+<h3 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h3><p>安装共2步，首先安装 Nginx（或 Apache）和 PHP。然后在 Nginx 目录通过 SFTP 或 GitHub 部署好本项目的程序。</p>
+<h4 id="1-安装-Nginx-和-PHP"><a href="#1-安装-Nginx-和-PHP" class="headerlink" title="1.安装 Nginx 和 PHP"></a>1.安装 Nginx 和 PHP</h4><p>在 Pi 的终端运行以下命令。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install nginx php7.3-fpm php7.3-cli php7.3-curl php7.3-gd php7.3-cgi</span><br><span class="line">sudo service nginx start</span><br><span class="line">sudo service php7.3-fpm restart</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>如果安装成功，可通过 <code>http://树莓派IP</code> 访问到 Nginx 的默认页。Nginx 的根目录在 <code>/var/www/html</code>。<br>进行以下操作来让 Nginx 能处理 PHP。<br><code>sudo nano /etc/nginx/sites-available/default</code></p>
+<p>将其中的如下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">                # First attempt to serve request as file, then</span><br><span class="line">                # as directory, then fall back to displaying a 404.</span><br><span class="line">                try_files $uri $uri/ =404;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>替换为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">index  index.html index.htm index.php default.html default.htm default.php;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">location ~\.php$ &#123;</span><br><span class="line">fastcgi_pass unix:/run/php/php7.3-fpm.sock;</span><br><span class="line">#fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;</span><br><span class="line">include fastcgi_params;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>Ctrl + O 保存再 Ctrl + X 退出。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service nginx restart</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>最后重启 Nginx 即可，以上步骤在树莓派 Zero + <code>Linux version 4.9.41+</code> 系统版本上测试通过。</p>
+<p>对在树莓派上部署 LNMP 有兴趣可以参考这篇更详细的介绍《<a target="_blank" rel="noopener" href="http://shumeipai.nxez.com/2013/08/25/install-and-config-lnmp.html">树莓派搭建LNMP环境</a>》。</p>
+<h4 id="2-部署-Pi-Dashboard"><a href="#2-部署-Pi-Dashboard" class="headerlink" title="2.部署 Pi Dashboard"></a>2.部署 Pi Dashboard</h4><p>这里介绍两种方法将 Pi Dashboard 部署在 Nginx 上。<br><strong>2.1. SFTP 上传</strong><br>在 GitHub 下载本项目源码。<a target="_blank" rel="noopener" href="http://shumeipai.nxez.com/2013/09/07/use-the-remote-sftp-file-transfer-raspberry-pi.html">通过 FileZilla 等 FTP 软件</a>将解压出来的目录上传到树莓派的 <code>/var/www/html</code> 目录下。<br>那么可以通过 <code>http://树莓派IP/pi-dashboard</code> 访问部署好了的 Pi Dashboard。</p>
+<p>如果页面无法显示，可以尝试在树莓派终端给源码添加运行权限，例如你上传之后的路径是 <code>/var/www/html/pi-dashboard</code>，则运行。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /var/www/html</span><br><span class="line">sudo chown -R www-data pi-dashboard</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.2. GitHub 部署</strong><br>如果你了解过 GitHub 的基本操作，通过 GitHub 来下载本项目到 Pi 上会相当方便。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#如果已安装过 git 客户端可以跳过下一行</span><br><span class="line">sudo apt-get install git</span><br><span class="line">cd /var/www/html</span><br><span class="line">sudo git clone https://github.com/nxez/pi-dashboard.git</span><br></pre></td></tr></table></figure>
+
+<p>即可通过 <code>http://树莓派IP/pi-dashboard</code> 访问部署好了的 Pi Dashboard。</p>
+<p>同样如果页面无法显示，可以尝试在树莓派终端给源码添加运行权限，例如你上传之后的路径是 <code>/var/www/html/pi-dashboard</code>，则运行。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /var/www/html</span><br><span class="line">sudo chown -R www-data pi-dashboard</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>原文出处：<a target="_blank" rel="noopener" href="https://make.quwj.com/project/10">Pi Dashboard (Pi 仪表盘) - MAKE 趣无尽 (quwj.com)</a></p>
 
         </div>
 
@@ -246,7 +327,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://markipop.github.io/posts/4a17b156/">https://markipop.github.io/posts/4a17b156/</a></span>
+                        <span><a href="https://markipop.github.io/posts/6c0957e8/">https://markipop.github.io/posts/6c0957e8/</a></span>
                     </p>
                 
                 
@@ -260,8 +341,10 @@
         
         <section class="post-nav">
             
+                <a class="prev" rel="prev" href="/posts/a7f612dd/">树莓派安装中文输入法</a>
             
-            <a class="next" rel="next" href="/posts/463fd0e9/">Hexo部署后Github Pages自定义域名失效解决方案</a>
+            
+            <a class="next" rel="next" href="/posts/11998d59/">树莓派开箱上机后要做的事</a>
             
 
         </section>
@@ -269,6 +352,10 @@
             <!-- <div>
                 <span>Tag(s):</span>
                 <span class="tag">
+                    
+                        
+                            <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"># 树莓派</a>
+                        
                     
                 </span>
             </div> 

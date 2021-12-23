@@ -13,7 +13,7 @@
 
 
 
-<title>Hello World | Jugolink&#39;s Blog</title>
+<title>树莓派samba安装，实现局域网可读文件夹共享 | Jugolink&#39;s Blog</title>
 
 
 
@@ -195,7 +195,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Hello World</h1>
+            <h1 class="post-title">树莓派samba安装，实现局域网可读文件夹共享</h1>
             
                 <div class="post-meta">
                     
@@ -204,13 +204,24 @@
                     
                     
                         <span class="post-time">
-                        Date: <a href="#">December 23, 2021&nbsp;&nbsp;7:53:20</a>
+                        Date: <a href="#">November 14, 2021&nbsp;&nbsp;23:57:00</a>
                         </span>
                     
              
                     
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
+                            
+                        </span>
+                    
                     <span>Tag(s):</span>
                     <span class="tag">
+                        
+                            
+                                <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"># 树莓派</a>
+                            
                         
                     </span>
                 </div>
@@ -218,19 +229,46 @@
         </header>
 
         <div class="post-content">
-            <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+            <blockquote>
+<p>背景<br>windows环境下，ssh登陆树莓派，为方便文件管理，想用samba实现</p>
+</blockquote>
+<h4 id="在树莓派上"><a href="#在树莓派上" class="headerlink" title="在树莓派上"></a>在树莓派上</h4><h5 id="安装samba"><a href="#安装samba" class="headerlink" title="安装samba"></a>安装samba</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install samba -y</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<h5 id="可选择-创建共享文件夹和授权"><a href="#可选择-创建共享文件夹和授权" class="headerlink" title="(可选择)创建共享文件夹和授权"></a>(可选择)创建共享文件夹和授权</h5><p>在当前用户下，创建共享文件夹</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /home/pi/share</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod 755 /home/pi/share</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>当然，如果你只是想共享某个特定的文件夹，直接到下一步操作即可。</p>
+<h5 id="配置samba-conf文件"><a href="#配置samba-conf文件" class="headerlink" title="配置samba.conf文件"></a>配置samba.conf文件</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/samba/samba.conf</span><br></pre></td></tr></table></figure>
+
+<p>在文末添加以下内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[share]</span><br><span class="line">  path = /home/pi/share（这个路径你可以修改成你想分享的文件夹路径）</span><br><span class="line">  valid users = yes</span><br><span class="line">  browseable = yes</span><br><span class="line">  public = yes</span><br><span class="line">  writable = yes</span><br><span class="line">  guest ok = yes</span><br><span class="line">  <span class="built_in">read</span> only = yes</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：网上有些教程是修改全局read only，这样做不安全。</p>
+</blockquote>
+<h5 id="重启samba"><a href="#重启samba" class="headerlink" title="重启samba"></a>重启samba</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restet smbd</span><br></pre></td></tr></table></figure>
+
+<h5 id="添加共享用户"><a href="#添加共享用户" class="headerlink" title="添加共享用户"></a>添加共享用户</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sampasswd -a pi</span><br></pre></td></tr></table></figure>
+
+<p>这里需要输入密码，这个密码是用来从访问端输入用户名和密码时使用的密码！</p>
+<p>到这里，基本差不多了，但需要注意的事，如果有安装防火墙，可能需要将某些特定端口开放，否则无法实现文件共享。</p>
+<p>为samba开放<strong>445</strong>、<strong>139</strong> tcp端口。详情可以跳转<a target="_blank" rel="noopener" href="https://wiki.samba.org/index.php/Samba_Domain_Member_Port_Usage">Samba Domain Member Port Usage - SambaWiki</a></p>
+<h4 id="在windows下"><a href="#在windows下" class="headerlink" title="在windows下"></a>在windows下</h4><p><img src="https://pic.imgdb.cn/item/6132f44044eaada739831fed.png" alt="添加网络位置"></p>
+<p>我的电脑 -&gt; 添加网络位置 根据向导点击到 指定网站位置步骤，输入</p>
+<p>举例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\\192.168.0.000\pi\share</span><br></pre></td></tr></table></figure>
+
+<p>这个路径就是刚刚在树莓派上开放的共享文件夹路径。</p>
+<p>下一步下一步下一步，之后会弹窗，需要输入用户名和密码，</p>
+<p>这里用的是树莓派默认的用户名pi，所以我的输入是：</p>
+<p>username：pi   psk：1111（在树莓派添加共享用户时设置的密码）</p>
+<p>done~</p>
+<p>一切完成之后，可以在访问端看到共享位置，点进去，就看得到</p>
+<p>进去，就看得到</p>
 
         </div>
 
@@ -246,7 +284,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://markipop.github.io/posts/4a17b156/">https://markipop.github.io/posts/4a17b156/</a></span>
+                        <span><a href="https://markipop.github.io/posts/9f895c2e/">https://markipop.github.io/posts/9f895c2e/</a></span>
                     </p>
                 
                 
@@ -260,8 +298,10 @@
         
         <section class="post-nav">
             
+                <a class="prev" rel="prev" href="/posts/45f0cf50/">提高树莓派的安全性</a>
             
-            <a class="next" rel="next" href="/posts/463fd0e9/">Hexo部署后Github Pages自定义域名失效解决方案</a>
+            
+            <a class="next" rel="next" href="/posts/a7f612dd/">树莓派安装中文输入法</a>
             
 
         </section>
@@ -269,6 +309,10 @@
             <!-- <div>
                 <span>Tag(s):</span>
                 <span class="tag">
+                    
+                        
+                            <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"># 树莓派</a>
+                        
                     
                 </span>
             </div> 
