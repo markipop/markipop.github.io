@@ -13,7 +13,7 @@
 
 
 
-<title>联想G50-70m oc引导 | Jugolink&#39;s Blog</title>
+<title>mac下搭建hexo | Jugolink&#39;s Blog</title>
 
 
 
@@ -40,6 +40,45 @@
 
     
     
+        
+            <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
         
     
 
@@ -195,7 +234,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">联想G50-70m oc引导</h1>
+            <h1 class="post-title">mac下搭建hexo</h1>
             
                 <div class="post-meta">
                     
@@ -204,7 +243,7 @@
                     
                     
                         <span class="post-time">
-                        Date: <a href="#">December 23, 2021&nbsp;&nbsp;17:50:00</a>
+                        Date: <a href="#">November 14, 2021&nbsp;&nbsp;23:30:00</a>
                         </span>
                     
              
@@ -220,7 +259,7 @@
                     <span class="tag">
                         
                             
-                                <a href="/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/"># 黑苹果</a>
+                                <a href="/tags/%E5%8D%9A%E5%AE%A2/"># 博客</a>
                             
                         
                     </span>
@@ -229,104 +268,73 @@
         </header>
 
         <div class="post-content">
-            <h2 id="联想G50-70m-OC引导"><a href="#联想G50-70m-OC引导" class="headerlink" title="联想G50-70m OC引导"></a>联想G50-70m OC引导</h2><h3 id="配置信息"><a href="#配置信息" class="headerlink" title="配置信息"></a>配置信息</h3><table>
-<thead>
-<tr>
-<th>硬件名称</th>
-<th>属性</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>cpu</td>
-<td>i5-4210u</td>
-</tr>
-<tr>
-<td>核显</td>
-<td>Intel(R) HD Graphics 4400</td>
-</tr>
-<tr>
-<td>独显</td>
-<td>GF820M（GPU代码名称GT117）</td>
-</tr>
-<tr>
-<td>内存</td>
-<td>DDR3L 8*2双通道（三星+光威）</td>
-</tr>
-<tr>
-<td>硬盘</td>
-<td>500G金士顿固态</td>
-</tr>
-<tr>
-<td>无线网卡</td>
-<td>更换成了BCM95342Z，原瑞昱网卡无法驱动</td>
-</tr>
-<tr>
-<td>有线网卡</td>
-<td>Realtek RTL8168/8111</td>
-</tr>
-<tr>
-<td>BIOS 版本</td>
-<td>Build Number: 2179 PC 14.34 10/07/2013 10:03:35</td>
-</tr>
-<tr>
-<td>声卡</td>
-<td>Intel Lynx Point-LP PCH（ Conexant CX20751/CX20752）</td>
-</tr>
-</tbody></table>
-<p>以上尽可能详细的贴出硬件参数，方便直接进行配置oc升级。由于更换成了博通网卡，所以蓝牙和wifi都不需要加载驱动，个别情况可能需要，遇到了在提。</p>
-<h3 id="OC版本及引导情况"><a href="#OC版本及引导情况" class="headerlink" title="OC版本及引导情况"></a>OC版本及引导情况</h3><p>OC版本： 0.7.7</p>
-<p>引导系统版本：BigSur11.6.2（当前最新）</p>
-<p>正常项：</p>
-<ul>
-<li>Wi-Fi</li>
-<li>蓝牙</li>
-<li>随航</li>
-<li>接力</li>
-<li>隔空投送</li>
-<li>亮度调节（控制中心滑块调节）</li>
-<li>声音调节（按键+控制中心调节）</li>
-<li>HDMI输出</li>
-<li>核显加速</li>
-<li>电池状态</li>
-<li>休眠和唤醒</li>
-<li>……</li>
-<li>……</li>
+            <h2 id="mac下搭建hexo博客"><a href="#mac下搭建hexo博客" class="headerlink" title="mac下搭建hexo博客"></a>mac下搭建hexo博客</h2><h3 id="安装前提"><a href="#安装前提" class="headerlink" title="安装前提"></a>安装前提</h3><ul>
+<li>Node.js (Node.js 版本需不低于 10.13，建议使用 Node.js 12.0 及以上版本)</li>
+<li>Git</li>
 </ul>
-<p>异常项：</p>
+<h3 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h3><p>直接下载安装程序<a target="_blank" rel="noopener" href="https://sourceforge.net/projects/git-osx-installer/">git-osx-installer</a>。</p>
+<p>安装后验证是否安装成功，终端运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h3><p>hexo官方文档中推荐通过<a target="_blank" rel="noopener" href="https://github.com/jasongin/nvs/blob/master/doc/SETUP.md#mac-linux"><strong>nvs</strong></a>或<strong>nvm</strong>安装<strong>Node.js</strong>，以避免可能遇到的权限问题。这里介绍通过<strong>nvs</strong>安装<strong>Node.js</strong>。</p>
+<h4 id="安装nvs"><a href="#安装nvs" class="headerlink" title="安装nvs"></a>安装nvs</h4><p>Mac/Linux，打开终端，分别运行以下命令</p>
+<ol>
+<li><p>指定安装路径</p>
 <ul>
-<li>触控板的按键</li>
-<li>亮度调节（f11/f12）</li>
-<li>……</li>
+<li><p>对于当前用户安装(推荐) :</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> NVS_HOME=<span class="string">&quot;<span class="variable">$HOME</span>/.nvs&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li><p><del>或者对于系统安装</del>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> NVS_HOME=<span class="string">&quot;/usr/local/nvs&quot;</span></span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="有关更换网卡的限制"><a href="#有关更换网卡的限制" class="headerlink" title="有关更换网卡的限制"></a>有关更换网卡的限制</h3><p>据我所知，较老的惠普和联想电脑都有bios白名单限制，也就是说无法直接升级或更换无线网卡，有两个方法：</p>
+</li>
+<li><p>Clone</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/jasongin/nvs <span class="string">&quot;<span class="variable">$NVS_HOME</span>&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">. <span class="string">&quot;<span class="variable">$NVS_HOME</span>/nvs.sh&quot;</span> install</span><br></pre></td></tr></table></figure></li>
+<li><p>配置镜像地址</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nvs remote node https://npm.taobao.org/mirrors/node/</span><br><span class="line">nvs remote</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="安装Node-js-1"><a href="#安装Node-js-1" class="headerlink" title="安装Node.js"></a>安装Node.js</h4><ul>
+<li><p>安装最新的LTS版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvs add lts</span><br></pre></td></tr></table></figure></li>
+<li><p>或安装最新版本的node，与lts版本二选一</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvs add latest</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="6">
+<li><p>添加 node 到 PATH:</p>
 <ul>
-<li>删除白名单模块</li>
-<li>将需要替换升级的无线网卡硬件ID写进bios白名单中</li>
+<li><p>为当前 shell 添加一个版本的 node 到 PATH：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvs use lts</span><br></pre></td></tr></table></figure>
+
+<p>这是我运行这条命令回复的内容:<code>PATH += ~/.nvs/node/16.13.0/x64/bin</code> 。</p>
+</li>
+<li><p>或将其永久添加到 PATH：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvs link lts</span><br></pre></td></tr></table></figure>
+
+<p>这是我运行这条命令回复的内容:<code>~/.nvs/default -&gt; ~/.nvs/node/16.13.0/x64</code></p>
+</li>
 </ul>
-<p>两个方法都涉及到刷bios，所以是有风险的。我更倾向选第一种，因为删除了白名单限制，后续需要更换网卡随便换，不需要再重新将新的网卡id写进bios。有关这部分的问题，将会单独出一个教程，需要的可以去看。</p>
-<h3 id="有关这份OC引导文件的来历"><a href="#有关这份OC引导文件的来历" class="headerlink" title="有关这份OC引导文件的来历"></a>有关这份OC引导文件的来历</h3><p><strong>最开始用的版本</strong></p>
-<p>从<a target="_blank" rel="noopener" href="http://tonymacx86.com/">tonymacx86论坛</a>找到的一个0.6.4版本的efi，Wi-Fi/蓝牙/接力/随航什么的都正常，不正常的就是hdmi没有输出，如果开机插着hdmi会黑屏，另外就是音量按键无法使用。</p>
-<p><strong>monterey 遇到的问题</strong></p>
-<p>尝试过升级到monterey 12.1，遇到出现了蓝牙时断时连的情况，体验完很不好。调整驱动后多次测试不满意，最后退回了bigsur。</p>
-<p>大概原因：苹果公司在12的系统中对蓝牙栈做了大量的修改以适配自身的硬件情况，在升级到monterey的一大波人中，出现我遇到的这种情况的不再少数。看一些黑苹果论坛里有解决的办法，需要可以去了解。</p>
-<p><strong>致谢</strong><br>感谢<a target="_blank" rel="noopener" href="https://blog.hibobmaster.com/hp-15-dc1010nr-hackintosh/">hibobmaster</a>对这份efi提供的大量帮助，另外我们讨论问题都记录在他的<a target="_blank" rel="noopener" href="https://quanquan.space/viewtopic.php?p=786#p786">论坛</a>macos专题下，对升级过程感兴趣的同学可以移步去看。</p>
-<p>也需要感谢<a target="_blank" rel="noopener" href="https://github.com/Moore2253/Install-MacOS-On-Lenovo-G50-70/commits?author=Moore2253">Moore2253</a>，最早由他提供的clover和最新版的efi做参考，但由于电脑配置有差异，他分享的efi在我这台电脑上没法进入引导，但在后续升级中，他提供的efi给了我很大的帮助。</p>
-<h3 id="安装教程"><a href="#安装教程" class="headerlink" title="安装教程"></a>安装教程</h3><p>如果你还不确切的知道如何完成引导安装的过程，可以参考</p>
-<p>kaqiup的这两篇文章：<br><a target="_blank" rel="noopener" href="https://www.kaqiup.xyz/posts/100b5772">惠普暗影精灵5黑苹果Big Sur安装教程</a></p>
-<p>这篇文章主要记录了有合适的efi的条件下，如何通过u盘以及分区助手等工具实现系统的安装过程。内容很详细，很适合了解不深的同学。</p>
-<p><a target="_blank" rel="noopener" href="https://www.kaqiup.xyz/posts/c8cc8a0b">记录一次从新硬盘迁移系统的经历</a><br>这篇文章主要记录需要在硬盘之间交换所安装的系统，会用到克隆系统的场景，最后合适的设置系统引导。</p>
-<p>基于过去参考教程的经验，这些教程并不能包含广泛的场景，也就是说，你可能在参考的时候会遇到各种让人意外的情况，如果是这样，你需要多去百度或google寻找适合自己的答案。</p>
-<h3 id="示例图"><a href="#示例图" class="headerlink" title="示例图"></a>示例图</h3><p><img src="https://pic.imgdb.cn/item/61c4496a2ab3f51d919b13c8.png"></p>
-<p><img src="https://pic.imgdb.cn/item/61c41cea2ab3f51d91861fdf.png" alt="oc ver"></p>
-<p><img src="https://pic.imgdb.cn/item/61c41cea2ab3f51d91861fe8.png" alt="首页"></p>
-<p><img src="https://pic.imgdb.cn/item/61c44a2d2ab3f51d919b6617.png" alt="显示器"></p>
-<p><img src="https://pic.imgdb.cn/item/61c44a752ab3f51d919b80d0.png" alt="音频部分"></p>
-<p><img src="https://pic.imgdb.cn/item/61c44ab52ab3f51d919b96cf.png" alt="USB"></p>
-<h3 id="下载链接"><a href="#下载链接" class="headerlink" title="下载链接"></a>下载链接</h3><p>有关这份oc引导文件下载链接在这里，根据网络情况二选一下载即可：</p>
-<p><a target="_blank" rel="noopener" href="https://nikooo.lanzout.com/iIJ5Uxwmhmb">蓝奏云</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/anran2020/lenovo-G50-70m-opencore/releases/tag/oc">Github</a></p>
-<h3 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h3><p>如果使用中或者安装过程中有遇到任何问题，，可以在我的论坛发帖出来：<br><a target="_blank" rel="noopener" href="https://www.nikooo.site/t/macos">传送门</a></p>
-<p>如果你更喜欢发邮件，那么这是我的邮箱：<a href="mailto:&#x6b;&#x61;&#x71;&#x69;&#117;&#x70;&#x36;&#64;&#x67;&#x6d;&#97;&#105;&#108;&#46;&#99;&#111;&#x6d;">&#x6b;&#x61;&#x71;&#x69;&#117;&#x70;&#x36;&#64;&#x67;&#x6d;&#97;&#105;&#108;&#46;&#99;&#111;&#x6d;</a></p>
+</li>
+</ol>
+<h3 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h3><blockquote>
+<p>以下步骤也适用于windows环境下hexo的安装。</p>
+</blockquote>
+<h4 id="全局安装"><a href="#全局安装" class="headerlink" title="全局安装"></a>全局安装</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<h4 id="建站"><a href="#建站" class="headerlink" title="建站"></a>建站</h4><p>选择一个路径新建一个文件夹(例如我在叫<code>myblog</code>)，可以通过访达创建也可以通过命令行，用于存放博客相关的文件，并通过终端，进入该文件夹，运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init myblog</span><br><span class="line"><span class="built_in">cd</span> myblog</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<p>新建完成后，指定文件夹的目录如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── <span class="built_in">source</span></span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure>
+
+<p>有关各个文件的用途及意义不在这篇文章的介绍范围内，需要了解请查看[官方指导文档](<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/setup">建站 | Hexo</a>)。</p>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>到这一步，hexo博客已经搭建完成，剩下的工作就是更换喜欢的主题和增加插件或者调整样式了，这是一个蛮耗时间的事情，但为了有一个好看的个人博客，这些时间的支出还是可以承受的，你觉得呢？</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/63403762">科普文：使用 nvs 管理本地 Node.js 版本 - 知乎 (zhihu.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://nodejs.org/en/download/package-manager/#nvs">Installing Node.js via package manager | Node.js (nodejs.org)</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/jasongin/nvs/blob/master/doc/SETUP.md">nvs/SETUP.md at master · jasongin/nvs · GitHub</a></p>
+<p><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">文档 | Hexo</a></p>
 
         </div>
 
@@ -342,7 +350,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://markipop.github.io/posts/ff690038/">https://markipop.github.io/posts/ff690038/</a></span>
+                        <span><a href="https://markipop.github.io/posts/af6d569a/">https://markipop.github.io/posts/af6d569a/</a></span>
                     </p>
                 
                 
@@ -356,8 +364,8 @@
         
         <section class="post-nav">
             
+                <a class="prev" rel="prev" href="/posts/24e54465/">mac下部署博客到云服务器</a>
             
-            <a class="next" rel="next" href="/posts/24e54465/">mac下部署博客到云服务器</a>
             
 
         </section>
@@ -367,7 +375,7 @@
                 <span class="tag">
                     
                         
-                            <a href="/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/"># 黑苹果</a>
+                            <a href="/tags/%E5%8D%9A%E5%AE%A2/"># 博客</a>
                         
                     
                 </span>
